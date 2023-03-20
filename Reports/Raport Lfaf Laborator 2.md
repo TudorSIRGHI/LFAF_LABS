@@ -109,6 +109,8 @@ print(f"DFA initial state: {dfa.start_state}")
 print(f"DFA final states: {dfa.accept_states}")
 ```
 
+![Image](Screenshot.jpg)
+
 ## Conclusion
 In conclusion, formal languages and finite automata are important concepts in computer science that have significant implications for various fields such as artificial intelligence, natural language processing, and computational linguistics. 
 Understanding the fundamental concepts of formal languages and finite automata, including determinism, conversion from NFAs to DFAs, and the Chomsky hierarchy, is crucial for designing efficient algorithms and developing powerful computational models. 
