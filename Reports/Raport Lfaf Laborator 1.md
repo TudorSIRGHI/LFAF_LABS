@@ -153,7 +153,7 @@ class FiniteAutomaton:
 ```
 
 ### Screenshot
-![Image](Lab1Screenshot.jpg)
+![Image](Lab1Screenshot.png)
 
 ## Conclusion
  The understanding of regular grammars and finite automata is crucial for comprehending the potential and constraints of computers. Computer scientists rely on these tools to design algorithms that are efficient in tasks such as text processing, pattern matching, and lexical analysis, which are widely used in real-world applications such as data compression, spam filters, and search engines. Furthermore, regular languages and automata enable computer systems to communicate with each other in a standardized way, which is vital for network communication.
