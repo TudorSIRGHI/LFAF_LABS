@@ -6,7 +6,9 @@ from Grammar import Grammars
 import Lexer
 import unittest
 from Chomsky import CNFConverter
-from UnitTester import UnitTester
+import UnitTester
+import Interpreter
+import Parser
 class Main:
     print('===============================LAB1=====================================')
     def __init__(self):
@@ -88,7 +90,7 @@ for token in lexer.tokenize():
 print('=======================================LAB4==========================================')
 print('')
 VN = {'S', 'A', 'B', 'C', 'D', 'X'}
-VT = {'a', 'b'}
+VI = {'a', 'b'}
 P = [
     ('S', ('B' ,)),
     ('A', ('a', 'X')),
@@ -104,11 +106,11 @@ P = [
 S = 'S'
 grammar = (VN, VI, P, S)
 
-# Convert the grammar to Chomsky normal form
+# Grammar to CNF
 cnf_converter = CNFConverter(grammar)
 cnf_grammar = cnf_converter.convert_to_cnf()
 
-# Print the resulting grammar
+# Resulting Grammar
 print('Gramatica initiala:')
 print(grammar)
 print('Gramatica in Chomsky:')
@@ -118,5 +120,13 @@ print("Toate testele au trecut")
 unittest.main()
 print('')
 
-
+print('=======================================LAB5==========================================')
+print('')
+lexer = Lexer("var m = 21; var x = 3; var z = m + x;")
+parser = Parser(lexer)
+ast = parser.process()
+print(ast)
+interpreter = Interpreter()
+interpreter.interpret(ast)
+print(interpreter.variables)
 

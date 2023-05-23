@@ -1,48 +1,36 @@
-class Lexer:
-    def init(self, text):
-        self.text = text
-        self.pos = 0
-        self.current_char = self.text[self.pos]
+import re
 
-    def error(self):
-        raise Exception("Invalid character")
+class MathLexer:
+    TOKENS = [
+        (r'\s+', None),  # Whitespace
+        (r'\d*\.\d+([eE][-+]?\d+)?', 'FLOAT'),  # Floating point numbers
+        (r'\d+', 'INT'),  # Integers
+        (r'var', 'VAR'),  # Var
+        (r'\(', 'LPAREN'),  # Left parenthesis
+        (r'\)', 'RPAREN'),  # Right parenthesis
+        (r'[a-zA-Z_][a-zA-Z0-9_]*', 'ID'), # Id
+        (r'[+\-*/]', 'OP'),  # Arithmetic operators
+        (r'=', 'ASSIGN'),  # Assignment
+        (r';', 'SEMICOLON')  # Semicolon
+    ]
 
-    def advance(self):
-        self.pos += 1
-        if self.pos >= len(self.text):
-            self.current_char = None
-        else:
-            self.current_char = self.text[self.pos]
-
-    def skip_whitespace(self):
-        while self.current_char is not None and self.current_char.isspace():
-            self.advance()
-
-    def integer(self):
-        result = ""
-        while self.current_char is not None and self.current_char.isdigit():
-            result += self.current_char
-            self.advance()
-        return int(result)
+    def __init__(self, expression):
+        self.expression = expression
+        self.tokens = []
 
     def tokenize(self):
-        while self.current_char is not None:
-            if self.current_char.isspace():
-                self.skip_whitespace()
-                continue
-            elif self.current_char.isdigit():
-                yield self.integer()
-            elif self.current_char == '+':
-                self.advance()
-                yield '+'
-            elif self.current_char == '-':
-                self.advance()
-                yield '-'
-            elif self.current_char == '*':
-                self.advance()
-                yield '*'
-            elif self.current_char == '/':
-                self.advance()
-                yield '/'
-            else:
-                self.error()
+        while len(self.expression) > 0:
+            matched = False
+            for pattern, token_type in self.TOKENS:
+                regex = re.compile(pattern)
+                match = regex.match(self.expression)
+                if match:
+                    matched = True
+                    if token_type:  # Only non-None token types will be appended
+                        token = (token_type, match.group(0))
+                        self.tokens.append(token)
+                    self.expression = self.expression[len(match.group(0)):]
+                    break
+            if not matched:
+                raise ValueError(f"Invalid token: {self.expression}")
+        return self.tokens
