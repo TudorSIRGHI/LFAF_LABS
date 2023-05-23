@@ -122,7 +122,7 @@ print('')
 
 print('=======================================LAB5==========================================')
 print('')
-lexer = Lexer("var m = 21; var x = 3; var z = m + x;")
+lexer = Lexer("var x = 10; var y = 2; var z = m + x;")
 parser = Parser(lexer)
 ast = parser.process()
 print(ast)
